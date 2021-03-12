@@ -15,14 +15,15 @@ class Upload():
             <body>
                 <form method="POST" enctype="multipart/form-data" action="">
                     <input type="file" name="myfile" />
-                    <br/>
+                    <br>
+                    <br>
                     <input type="submit" />
                 </form>
             </body>
         </html>"""
     def POST(self):
         x = web.input(myfile={})
-        filedir = '/workspace/serpientes/static/' # change this to the directory you want to store the file in.
+        filedir = 'static' # change this to the directory you want to store the file in.
         if 'myfile' in x: # to check if the file-object is created
             filepath=x.myfile.filename.replace('\\','/') # replaces the windows-style slashes with linux ones.
             filename=filepath.split('/')[-1] # splits the and chooses the last part (the filename with extension)
@@ -31,9 +32,9 @@ class Upload():
             fout.close() # closes the file, upload complete.
         
         np.set_printoptions(suppress=True)
-        model = tensorflow.keras.models.load_model('/workspace/tipos-de-serpientes-/serpientes/keras_model.h5')
+        model = tensorflow.keras.models.load_model('static/keras_model.h5')
         data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
-        image = Image.open('/workspace/tipos-de-serpientes-/static/'+ filename)
+        image = Image.open('static/'+ filename)
         size = (224, 224)
         image = ImageOps.fit(image, size, Image.ANTIALIAS)
         image_array = np.asarray(image)
